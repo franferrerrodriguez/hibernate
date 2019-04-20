@@ -19,7 +19,7 @@ public class UserDAO {
 	 * @param user
 	 */
 	public void save(User user) {
-		Session currentSesion = HibernateUtil.getSessionFactory().openSession();
+		Session currentSesion = HibernateUtil.getSessionFactoryUsers().openSession();
 
 		Transaction tx = currentSesion.beginTransaction();
 
@@ -36,7 +36,7 @@ public class UserDAO {
 	 * @return Listado Users
 	 */
 	public List<User> getUsers() {
-		Session currentSesion = HibernateUtil.getSessionFactory().openSession();
+		Session currentSesion = HibernateUtil.getSessionFactoryUsers().openSession();
 		Transaction tx = null;
 		List<User> users = new ArrayList<User>();
 
@@ -65,7 +65,7 @@ public class UserDAO {
 	 * @param user
 	 */
 	public void update(User user) {
-		Session currentSesion = HibernateUtil.getSessionFactory().openSession();
+		Session currentSesion = HibernateUtil.getSessionFactoryUsers().openSession();
 
 		Transaction tx = currentSesion.beginTransaction();
 
@@ -82,7 +82,7 @@ public class UserDAO {
 	 * @param user
 	 */
 	public void delete(User user) {
-		Session currentSesion = HibernateUtil.getSessionFactory().openSession();
+		Session currentSesion = HibernateUtil.getSessionFactoryUsers().openSession();
 
 		currentSesion.beginTransaction();
 
@@ -102,7 +102,7 @@ public class UserDAO {
 	 */
 	public User getUserById(int id) {
 
-		Session currentSesion = HibernateUtil.getSessionFactory().openSession();
+		Session currentSesion = HibernateUtil.getSessionFactoryUsers().openSession();
 		Transaction tx = null;
 		User user = null;
 		Query<User> query = null;

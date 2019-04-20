@@ -18,7 +18,7 @@
       <!-- Assume students is the database name -->
    
       <property name = "hibernate.connection.url">
-         jdbc:mysql://localhost/USERS_DB?serverTimezone=UTC
+         jdbc:mysql://localhost/DB_USERS?serverTimezone=UTC
       </property>
    
       <property name = "hibernate.connection.username">

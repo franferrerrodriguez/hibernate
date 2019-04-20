@@ -2,32 +2,19 @@ package util;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-//import org.hibernate.service.ServiceRegistry;
-//import org.hibernate.service.ServiceRegistryBuilder;
 
+import entity.Client;
 import entity.User;
 
 public class HibernateUtil {
-	/*
-	 * private static final SessionFactory sessionFactory; private static final
-	 * ServiceRegistry serviceRegistry;
-	 * 
-	 * static { Configuration conf = new Configuration(); conf.configure();
-	 * serviceRegistry = new
-	 * ServiceRegistryBuilder().applySettings(conf.getProperties()).
-	 * buildServiceRegistry(); try { sessionFactory =
-	 * conf.buildSessionFactory(serviceRegistry); } catch (Exception e) {
-	 * System.err.println("Initial SessionFactory creation failed." + e); throw new
-	 * ExceptionInInitializerError(e); } }
-	 * 
-	 * public static SessionFactory getSessionFactory() { return sessionFactory; }
-	 */
 
-	private static final SessionFactory sessionFactory = buildSessionFactory();
+	private static final SessionFactory sessionFactoryUsers = buildSessionFactoryUsers();
+	private static final SessionFactory sessionFactoryClients = buildSessionFactoryClients();
 
-	private static SessionFactory buildSessionFactory() {
+	/* buildSession for Users */
+	private static SessionFactory buildSessionFactoryUsers() {
 		try {
-			Configuration conf = new Configuration().configure("hibernate.cfg.xml");
+			Configuration conf = new Configuration().configure("hibernate-users.cfg.xml");
 			conf.addAnnotatedClass(User.class);
 			return conf.buildSessionFactory();
 		} catch (Throwable ex) {
@@ -36,12 +23,34 @@ public class HibernateUtil {
 		}
 	}
 
-	public static SessionFactory getSessionFactory() {
-		return sessionFactory;
+	public static SessionFactory getSessionFactoryUsers() {
+		return sessionFactoryUsers;
 	}
 
-	public static void shutdown() {
+	public static void shutdownUsers() {
 		// Close caches and connection pools
-		getSessionFactory().close();
+		getSessionFactoryUsers().close();
 	}
+
+	/* buildSession for Clients */
+	private static SessionFactory buildSessionFactoryClients() {
+		try {
+			Configuration conf = new Configuration().configure("hibernate-clients.cfg.xml");
+			conf.addAnnotatedClass(Client.class);
+			return conf.buildSessionFactory();
+		} catch (Throwable ex) {
+			System.err.println("Initial SessionFactory creation failed." + ex);
+			throw new ExceptionInInitializerError(ex);
+		}
+	}
+
+	public static SessionFactory getSessionFactoryClients() {
+		return sessionFactoryClients;
+	}
+
+	public static void shutdownClients() {
+		// Close caches and connection pools
+		getSessionFactoryClients().close();
+	}
+
 }
